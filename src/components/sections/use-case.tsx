@@ -25,7 +25,7 @@ export const UseCaseSection = () => {
       </div>
       <section ref={targetRef} className="relative mx-auto h-[300vh] w-full">
         <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden">
-          <motion.div style={{ x }} className="flex w-full">
+          <motion.div style={{ x }} className="flex w-full gap-2">
             {usecases.map((usecase, index) => (
               <UseCaseCard key={index} {...usecase} />
             ))}
@@ -52,7 +52,7 @@ const usecases: UseCaseCardProps[] = [
   {
     title: "Hobby Writers & Bloggers",
     description:
-      "Write what you want, how you want. Walpress gives you a simple way to create personal blogs that aren’t subject to platform rules or algorithm shifts. ",
+      "Write what you want, how you want. Walpress gives you a simple way to create personal blogs that aren’t subject to platform rules or algorithm shifts.",
     imageSrc: "/use3.png",
   },
   {
@@ -65,6 +65,6 @@ const usecases: UseCaseCardProps[] = [
     title: "DAOs & Token Projects",
     description:
       "Launch clean, fast landing pages for tokens, DAOs, or governance hubs — all without centralized hosting or registrar lock-in. Own your frontend like you own your smart contracts.",
-    imageSrc: "/use2.png",
+    imageSrc: "/use5.png",
   },
 ];

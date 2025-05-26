@@ -20,7 +20,6 @@ export default function Home() {
         <UseCaseSection />
         <FAQSection />
         <CTASection />
-
         <SmoothCursor />
         <Footer />
         <CommentPopup />
