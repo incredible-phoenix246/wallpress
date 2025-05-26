@@ -115,7 +115,7 @@ export default function Navbar() {
                     "text-xl font-semibold text-[#213B4D] transition-colors duration-500"
                   )}
                 >
-                  WallPress
+                  WalPress
                 </motion.span>
               )}
             </AnimatePresence>
@@ -217,7 +217,7 @@ export default function Navbar() {
                     height={40}
                     className="rounded-lg"
                   />
-                  <span className="text-xl font-semibold">WallPress</span>
+                  <span className="text-xl font-semibold">WalPress</span>
                 </div>
                 <motion.button
                   onClick={() => setIsMobileMenuOpen(false)}
