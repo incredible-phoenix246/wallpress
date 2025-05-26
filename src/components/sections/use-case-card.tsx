@@ -1,14 +1,13 @@
-'use client'
+import { motion } from "framer-motion";
+import BlurImage from "../miscellaneous/blur-image";
+import { cn } from "../../lib/utils";
 
-import { motion } from 'framer-motion'
-import BlurImage from '../miscellaneous/blur-image'
-import { cn } from '~/lib/utils'
 
 export interface UseCaseCardProps {
-  title: string
-  description: string
-  imageSrc: string
-  className?: string
+  title: string;
+  description: string;
+  imageSrc: string;
+  className?: string;
 }
 
 export default function UseCaseCard({
@@ -21,9 +20,9 @@ export default function UseCaseCard({
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={cn(
-        'relative w-full min-w-[380px] overflow-hidden transition-shadow duration-300 md:min-w-[680px] lg:min-w-[1440px]',
+        "relative w-full min-w-[380px] overflow-hidden transition-shadow duration-300 md:min-w-[680px] lg:min-w-[1440px]",
         className
       )}
     >
@@ -61,7 +60,7 @@ export default function UseCaseCard({
         >
           <motion.div
             className="relative flex h-full w-full items-center justify-center overflow-hidden"
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <BlurImage
               src={imageSrc}
@@ -74,5 +73,5 @@ export default function UseCaseCard({
         </motion.div>
       </div>
     </motion.div>
-  )
+  );
 }

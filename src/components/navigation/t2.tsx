@@ -1,104 +1,104 @@
-'use client'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Twitter, Github, Youtube } from "lucide-react";
+import BlurImage from "../miscellaneous/blur-image";
+import Link from "next/link";
 
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Twitter, Github, Youtube } from 'lucide-react'
-import BlurImage from '../miscellaneous/blur-image'
-import Link from 'next/link'
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function Footer() {
-  const footerRef = useRef<HTMLElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
-  const taglineRef = useRef<HTMLParagraphElement>(null)
-  const socialRef = useRef<HTMLDivElement>(null)
-  const copyrightRef = useRef<HTMLParagraphElement>(null)
-  const backgroundRef = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
+  const copyrightRef = useRef<HTMLParagraphElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const footer = footerRef.current
-    const logo = logoRef.current
-    const tagline = taglineRef.current
-    const social = socialRef.current
-    const copyright = copyrightRef.current
-    const background = backgroundRef.current
+    const footer = footerRef.current;
+    const logo = logoRef.current;
+    const tagline = taglineRef.current;
+    const social = socialRef.current;
+    const copyright = copyrightRef.current;
+    const background = backgroundRef.current;
 
     if (!footer || !logo || !tagline || !social || !copyright || !background)
-      return
+      return;
 
     const createFloatingElements = () => {
       for (let i = 0; i < 5; i++) {
-        const element = document.createElement('div')
+        const element = document.createElement("div");
         element.className =
-          'absolute w-2 h-2 bg-slate-200 rounded-full opacity-30'
-        element.style.left = `${Math.random() * 100}%`
-        element.style.top = `${Math.random() * 100}%`
-        background.appendChild(element)
+          "absolute w-2 h-2 bg-slate-200 rounded-full opacity-30";
+        element.style.left = `${Math.random() * 100}%`;
+        element.style.top = `${Math.random() * 100}%`;
+        background.appendChild(element);
 
         gsap.to(element, {
           y: -20,
           x: Math.random() * 40 - 20,
           duration: 3 + Math.random() * 2,
-          ease: 'power1.inOut',
+          ease: "power1.inOut",
           yoyo: true,
           repeat: -1,
           delay: Math.random() * 2,
-        })
+        });
       }
-    }
+    };
 
-    createFloatingElements()
+    createFloatingElements();
 
-    const chars = tagline.textContent?.split('') || []
+    const chars = tagline.textContent?.split("") || [];
     tagline.innerHTML = chars
-      .map((char) => (char === ' ' ? ' ' : `<span class="char">${char}</span>`))
-      .join('')
-    const charElements = tagline.querySelectorAll('.char')
+      .map((char) => (char === " " ? " " : `<span class="char">${char}</span>`))
+      .join("");
+    const charElements = tagline.querySelectorAll(".char");
 
     gsap.set(logo, {
       scale: 0,
       rotation: -360,
       opacity: 0,
-    })
+    });
 
     gsap.set(charElements, {
       opacity: 0,
       y: 50,
       rotation: 15,
-    })
+    });
 
     gsap.set(social.children, {
       opacity: 0,
       scale: 0,
       y: 30,
-    })
+    });
 
     gsap.set(copyright, {
       opacity: 0,
       y: 30,
       skewY: 5,
-    })
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: 'top 90%',
-        end: 'bottom 10%',
-        toggleActions: 'play none none reverse',
+        start: "top 90%",
+        end: "bottom 10%",
+        toggleActions: "play none none reverse",
       },
-    })
+    });
 
     tl.to(logo, {
       scale: 1,
       rotation: 0,
       opacity: 1,
       duration: 1.2,
-      ease: 'elastic.out(1, 0.5)',
-    })
+      ease: "elastic.out(1, 0.5)",
+    });
 
     tl.to(
       charElements,
@@ -108,10 +108,10 @@ export default function Footer() {
         rotation: 0,
         duration: 0.05,
         stagger: 0.02,
-        ease: 'power2.out',
+        ease: "power2.out",
       },
-      '-=0.6'
-    )
+      "-=0.6"
+    );
 
     tl.to(
       social.children,
@@ -121,10 +121,10 @@ export default function Footer() {
         y: 0,
         duration: 0.6,
         stagger: 0.15,
-        ease: 'back.out(2)',
+        ease: "back.out(2)",
       },
-      '-=0.4'
-    )
+      "-=0.4"
+    );
 
     tl.to(
       copyright,
@@ -133,30 +133,30 @@ export default function Footer() {
         y: 0,
         skewY: 0,
         duration: 0.8,
-        ease: 'power3.out',
+        ease: "power3.out",
       },
-      '-=0.3'
-    )
+      "-=0.3"
+    );
 
-    const socialIcons = social.querySelectorAll('a')
+    const socialIcons = social.querySelectorAll("a");
     socialIcons.forEach((icon, index) => {
-      const hoverTl = gsap.timeline({ paused: true })
+      const hoverTl = gsap.timeline({ paused: true });
 
       const effects = [
-        { scale: 1.3, rotation: 10, backgroundColor: '#1DA1F2' },
-        { scale: 1.3, rotation: -10, backgroundColor: '#333' },
-        { scale: 1.3, rotation: 5, backgroundColor: '#FF0000' },
-      ]
+        { scale: 1.3, rotation: 10, backgroundColor: "#1DA1F2" },
+        { scale: 1.3, rotation: -10, backgroundColor: "#333" },
+        { scale: 1.3, rotation: 5, backgroundColor: "#FF0000" },
+      ];
 
       hoverTl.to(icon, {
         ...effects[index],
         duration: 0.3,
-        ease: 'power2.out',
-      })
+        ease: "power2.out",
+      });
 
-      icon.addEventListener('mouseenter', () => hoverTl.play())
-      icon.addEventListener('mouseleave', () => hoverTl.reverse())
-    })
+      icon.addEventListener("mouseenter", () => hoverTl.play());
+      icon.addEventListener("mouseleave", () => hoverTl.reverse());
+    });
 
     // gsap.to(logo, {
     //   scale: 1.05,
@@ -167,9 +167,9 @@ export default function Footer() {
     // })
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [])
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   return (
     <footer
@@ -230,5 +230,5 @@ export default function Footer() {
         </p>
       </div>
     </footer>
-  )
+  );
 }

@@ -1,27 +1,24 @@
-'use client'
+import { useState } from "react";
+import type { ComponentProps } from "react";
+import { cn } from "../../lib/utils";
 
-import Image from 'next/image'
-import { useState } from 'react'
-import type { ComponentProps } from 'react'
-import { cn } from '~/lib/utils'
-
-export default function BlurImage(props: ComponentProps<typeof Image>) {
-  const [isLoading, setLoading] = useState(true)
+export default function BlurImage(props: ComponentProps<"img">) {
+  const [isLoading, setLoading] = useState(true);
 
   return (
-    <Image
+    <img
       {...props}
       alt={props.alt}
       className={cn(
-        'duration-500 ease-in-out',
-        isLoading ? 'blur-sm' : 'blur-0',
+        "duration-500 ease-in-out",
+        isLoading ? "blur-sm" : "blur-0",
         props.className
       )}
       onLoad={() => {
         setTimeout(() => {
-          setLoading(false)
-        }, 300)
+          setLoading(false);
+        }, 300);
       }}
     />
-  )
+  );
 }

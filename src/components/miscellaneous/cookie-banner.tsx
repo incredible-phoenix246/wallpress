@@ -1,48 +1,47 @@
-'use client'
+import { useEffect, useState } from "react";
+import CookieIcon from "./cookie-icon";
+import { Button } from "../ui/button";
+import { cn } from "../../lib/utils";
 
-import { useEffect, useState } from 'react'
-import { Button } from 'ui/button'
-import CookieIcon from './cookie-icon'
-import { cn } from '~/lib/utils'
 
 export function CookieBanner() {
-  const [showBanner, setShowBanner] = useState(false)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [showBanner, setShowBanner] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoaded(true)
-    }, 3000)
-  }, [])
+      setIsLoaded(true);
+    }, 3000);
+  }, []);
 
   useEffect(() => {
     const cookieConsent = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('cookieConsent='))
-      ?.split('=')[1]
+      .split("; ")
+      .find((row) => row.startsWith("cookieConsent="))
+      ?.split("=")[1];
 
-    setShowBanner(cookieConsent !== 'accepted')
-  }, [])
+    setShowBanner(cookieConsent !== "accepted");
+  }, []);
 
   const acceptCookies = () => {
-    document.cookie = 'cookieConsent=accepted; path=/; max-age=31536000'
-    setShowBanner(false)
-  }
+    document.cookie = "cookieConsent=accepted; path=/; max-age=31536000";
+    setShowBanner(false);
+  };
 
   const declineCookies = () => {
-    document.cookie = 'cookieConsent=declined; path=/'
-    setShowBanner(false)
-  }
+    document.cookie = "cookieConsent=declined; path=/";
+    setShowBanner(false);
+  };
 
-  if (!showBanner) return null
+  if (!showBanner) return null;
 
   return (
     <div
       className={cn(
-        'fixed bottom-5 left-1/2 z-[99999] flex w-full -translate-x-1/2 flex-col items-center justify-between gap-x-2 gap-y-3 rounded-2xl bg-gray-900/90 px-4 py-3 text-white shadow-xl shadow-black/50 backdrop-blur-xl transition-all max-sm:max-w-[95%] sm:max-w-[90%] sm:flex-row sm:rounded-3xl sm:bg-gray-900 sm:py-6 md:gap-4 xl:bottom-8 xl:max-w-[1246px] xl:gap-5 xl:px-8',
+        "fixed bottom-5 left-1/2 z-[99999] flex w-full -translate-x-1/2 flex-col items-center justify-between gap-x-2 gap-y-3 rounded-2xl bg-gray-900/90 px-4 py-3 text-white shadow-xl shadow-black/50 backdrop-blur-xl transition-all max-sm:max-w-[95%] sm:max-w-[90%] sm:flex-row sm:rounded-3xl sm:bg-gray-900 sm:py-6 md:gap-4 xl:bottom-8 xl:max-w-[1246px] xl:gap-5 xl:px-8",
         isLoaded
-          ? 'translate-y-0 opacity-100 duration-700'
-          : 'translate-y-[300px] opacity-0 duration-300'
+          ? "translate-y-0 opacity-100 duration-700"
+          : "translate-y-[300px] opacity-0 duration-300"
       )}
     >
       <div className="font-inter flex items-start gap-3 sm:items-center xl:gap-x-5">
@@ -71,5 +70,5 @@ export function CookieBanner() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

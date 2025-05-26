@@ -1,96 +1,95 @@
-'use client'
+import type React from "react";
 
-import Link from 'next/link'
-import type React from 'react'
-import { cn } from '~/lib/utils'
-import { Button } from 'ui/button'
-import { X, Menu } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import BlurImage from '../miscellaneous/blur-image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { X, Menu } from "lucide-react";
+import { useState, useEffect } from "react";
+import BlurImage from "../miscellaneous/blur-image";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "../../lib/utils";
+import { Button } from "../ui/button";
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isPastHero, setIsPastHero] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isPastHero, setIsPastHero] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY
-      setIsScrolled(scrollY > 50)
-      const heroSection = document.querySelector('#hero')
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 50);
+      const heroSection = document.querySelector("#hero");
       if (heroSection) {
-        const heroHeight = (heroSection as HTMLElement).offsetHeight
-        setIsPastHero(scrollY > heroHeight - 100)
+        const heroHeight = (heroSection as HTMLElement).offsetHeight;
+        setIsPastHero(scrollY > heroHeight - 100);
       } else {
-        setIsPastHero(scrollY > window.innerHeight - 100)
+        setIsPastHero(scrollY > window.innerHeight - 100);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = ''
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isMobileMenuOpen])
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLAnchorElement>,
     targetId: string
   ) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const targetElement = document.querySelector(targetId)
+    const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      const headerOffset = 100
-      const elementPosition = targetElement.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      const headerOffset = 100;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth',
-      })
+        behavior: "smooth",
+      });
     }
 
-    setIsMobileMenuOpen(false)
-  }
+    setIsMobileMenuOpen(false);
+  };
 
   const navItems = [
-    { href: '#home', label: 'Home' },
-    { href: '#products', label: 'Products' },
-    { href: '#use-case', label: 'Use Case' },
-    { href: '#resources', label: 'Resources' },
-    { href: '#pricing', label: 'Pricing' },
-  ]
+    { href: "#home", label: "Home" },
+    { href: "#products", label: "Products" },
+    { href: "#use-case", label: "Use Case" },
+    { href: "#resources", label: "Resources" },
+    { href: "#pricing", label: "Pricing" },
+  ];
 
   return (
     <>
       <div className="font-cha fixed top-0 right-0 left-0 z-50 flex justify-center px-4">
         <motion.header
           className={cn(
-            'flex w-full max-w-[1500px] items-center justify-between py-2 transition-all duration-1000 sm:px-[80px]',
+            "flex w-full max-w-[1500px] items-center justify-between py-2 transition-all duration-1000 sm:px-[80px]",
             isScrolled &&
               isPastHero &&
-              'mx-auto mt-6 max-w-3xl rounded-full bg-white px-8 py-6 shadow-2xl backdrop-blur-md max-md:mt-4 sm:px-8',
+              "mx-auto mt-6 max-w-3xl rounded-full bg-white px-8 py-6 shadow-2xl backdrop-blur-md max-md:mt-4 sm:px-8",
             isScrolled &&
               !isPastHero &&
-              'mx-auto mt-6 max-w-3xl rounded-full bg-white/10 px-8 py-6 backdrop-blur-md max-md:mt-4 sm:px-8'
+              "mx-auto mt-6 max-w-3xl rounded-full bg-white/10 px-8 py-6 backdrop-blur-md max-md:mt-4 sm:px-8"
           )}
           initial={{ opacity: 1 }}
           animate={{
             opacity: 1,
-            height: isScrolled ? '60px' : '80px',
+            height: isScrolled ? "60px" : "80px",
           }}
           transition={{
-            type: 'spring',
+            type: "spring",
             stiffness: 300,
             damping: 30,
           }}
@@ -113,7 +112,7 @@ export default function Navbar() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
                   className={cn(
-                    'text-xl font-semibold text-[#213B4D] transition-colors duration-500'
+                    "text-xl font-semibold text-[#213B4D] transition-colors duration-500"
                   )}
                 >
                   WallPress
@@ -129,7 +128,7 @@ export default function Navbar() {
                 href={item.href}
                 onClick={(e) => handleSmoothScroll(e, item.href)}
                 className={cn(
-                  'cursor-pointer text-lg font-medium text-[#213B4D] transition-colors duration-500'
+                  "cursor-pointer text-lg font-medium text-[#213B4D] transition-colors duration-500"
                 )}
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
@@ -143,10 +142,10 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <motion.div
               animate={{
-                height: isScrolled ? '36px' : '44px',
+                height: isScrolled ? "36px" : "44px",
               }}
               transition={{
-                type: 'spring',
+                type: "spring",
                 stiffness: 300,
                 damping: 30,
               }}
@@ -155,24 +154,24 @@ export default function Navbar() {
                 size="lg"
                 asChild
                 className={cn(
-                  'hidden rounded-full transition-all duration-500 md:inline-flex',
+                  "hidden rounded-full transition-all duration-500 md:inline-flex",
                   isPastHero || isScrolled
-                    ? 'bg-[#213B4D] text-white hover:bg-[#213B4D]/80'
-                    : 'bg-white text-black hover:bg-gray-100'
+                    ? "bg-[#213B4D] text-white hover:bg-[#213B4D]/80"
+                    : "bg-white text-black hover:bg-gray-100"
                 )}
                 style={{
-                  height: isScrolled ? '36px' : '44px',
-                  fontSize: isScrolled ? '14px' : '16px',
-                  transition: 'all 0.5s ease-in-out',
+                  height: isScrolled ? "36px" : "44px",
+                  fontSize: isScrolled ? "14px" : "16px",
+                  transition: "all 0.5s ease-in-out",
                 }}
               >
-                <Link href="#">Get started</Link>
+                <a href="#">Get started</a>
               </Button>
             </motion.div>
 
             <motion.button
               className={cn(
-                'flex items-center justify-center text-gray-900 transition-colors duration-500 md:hidden'
+                "flex items-center justify-center text-gray-900 transition-colors duration-500 md:hidden"
               )}
               onClick={() => setIsMobileMenuOpen(true)}
               whileTap={{ scale: 0.95 }}
@@ -199,11 +198,11 @@ export default function Navbar() {
 
             <motion.div
               className="fixed top-0 right-0 bottom-0 z-50 flex w-[80%] max-w-sm flex-col bg-white text-gray-900 shadow-xl"
-              initial={{ x: '100%' }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+              exit={{ x: "100%" }}
               transition={{
-                type: 'spring',
+                type: "spring",
                 damping: 25,
                 stiffness: 200,
                 duration: 0.5,
@@ -259,7 +258,7 @@ export default function Navbar() {
                   asChild
                   className="w-full rounded-full bg-black text-white hover:bg-gray-800"
                 >
-                  <Link href="#">Get started</Link>
+                  <a href="#">Get started</a>
                 </Button>
               </motion.div>
             </motion.div>
@@ -267,5 +266,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }

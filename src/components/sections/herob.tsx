@@ -1,29 +1,27 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Register ScrollTrigger plugin
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 const Hero = () => {
-  const heroRef = useRef<HTMLElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-  const headingRef = useRef<HTMLHeadingElement>(null)
-  const paragraphRef = useRef<HTMLParagraphElement>(null)
-  const buttonsRef = useRef<HTMLDivElement>(null)
-  const downloadInfoRef = useRef<HTMLParagraphElement>(null)
+  const heroRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const downloadInfoRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const hero = heroRef.current
-    const content = contentRef.current
-    const heading = headingRef.current
-    const paragraph = paragraphRef.current
-    const buttons = buttonsRef.current
-    const downloadInfo = downloadInfoRef.current
+    const hero = heroRef.current;
+    const content = contentRef.current;
+    const heading = headingRef.current;
+    const paragraph = paragraphRef.current;
+    const buttons = buttonsRef.current;
+    const downloadInfo = downloadInfoRef.current;
 
     if (
       !hero ||
@@ -33,55 +31,55 @@ const Hero = () => {
       !buttons ||
       !downloadInfo
     )
-      return
+      return;
 
     // Set initial states
     gsap.set(hero, {
       opacity: 0,
       y: 50,
-    })
+    });
 
     gsap.set(content, {
       opacity: 0,
       y: 30,
-    })
+    });
 
     gsap.set(heading, {
       opacity: 0,
       y: 30,
-    })
+    });
 
     gsap.set(paragraph, {
       opacity: 0,
       y: 20,
-    })
+    });
 
     gsap.set(buttons, {
       opacity: 0,
       y: 20,
-    })
+    });
 
     gsap.set(downloadInfo, {
       opacity: 0,
-    })
+    });
 
     // Create main timeline
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: hero,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse',
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
       },
-    })
+    });
 
     // Hero container animation
     tl.to(hero, {
       opacity: 1,
       y: 0,
       duration: 0.8,
-      ease: 'power3.out',
-    })
+      ease: "power3.out",
+    });
 
     // Content wrapper animation
     tl.to(
@@ -90,10 +88,10 @@ const Hero = () => {
         opacity: 1,
         y: 0,
         duration: 0.6,
-        ease: 'power3.out',
+        ease: "power3.out",
       },
-      '-=0.6' // Start 0.6s before previous animation ends (equivalent to 0.2s delay)
-    )
+      "-=0.6" // Start 0.6s before previous animation ends (equivalent to 0.2s delay)
+    );
 
     // Heading animation
     tl.to(
@@ -102,10 +100,10 @@ const Hero = () => {
         opacity: 1,
         y: 0,
         duration: 0.8,
-        ease: 'power3.out',
+        ease: "power3.out",
       },
-      '-=0.5' // Start 0.5s before previous animation ends (equivalent to 0.3s total delay)
-    )
+      "-=0.5" // Start 0.5s before previous animation ends (equivalent to 0.3s total delay)
+    );
 
     // Paragraph animation
     tl.to(
@@ -114,10 +112,10 @@ const Hero = () => {
         opacity: 1,
         y: 0,
         duration: 0.6,
-        ease: 'power3.out',
+        ease: "power3.out",
       },
-      '-=0.6' // Start 0.6s before previous animation ends (equivalent to 0.5s total delay)
-    )
+      "-=0.6" // Start 0.6s before previous animation ends (equivalent to 0.5s total delay)
+    );
 
     // Buttons animation
     tl.to(
@@ -126,10 +124,10 @@ const Hero = () => {
         opacity: 1,
         y: 0,
         duration: 0.6,
-        ease: 'power3.out',
+        ease: "power3.out",
       },
-      '-=0.4' // Start 0.4s before previous animation ends (equivalent to 0.7s total delay)
-    )
+      "-=0.4" // Start 0.4s before previous animation ends (equivalent to 0.7s total delay)
+    );
 
     // Download info animation
     tl.to(
@@ -137,41 +135,41 @@ const Hero = () => {
       {
         opacity: 1,
         duration: 0.4,
-        ease: 'power2.out',
+        ease: "power2.out",
       },
-      '-=0.2' // Start 0.2s before previous animation ends (equivalent to 0.9s total delay)
-    )
+      "-=0.2" // Start 0.2s before previous animation ends (equivalent to 0.9s total delay)
+    );
 
     // Button hover effects
-    const buttonElements = buttons.querySelectorAll('button')
+    const buttonElements = buttons.querySelectorAll("button");
     buttonElements.forEach((button) => {
-      const hoverTl = gsap.timeline({ paused: true })
+      const hoverTl = gsap.timeline({ paused: true });
 
       hoverTl.to(button, {
         scale: 1.05,
         duration: 0.3,
-        ease: 'power2.out',
-      })
+        ease: "power2.out",
+      });
 
       // Tap effect
-      const tapTl = gsap.timeline({ paused: true })
+      const tapTl = gsap.timeline({ paused: true });
       tapTl.to(button, {
         scale: 0.95,
         duration: 0.1,
-        ease: 'power2.out',
-      })
+        ease: "power2.out",
+      });
 
-      button.addEventListener('mouseenter', () => hoverTl.play())
-      button.addEventListener('mouseleave', () => hoverTl.reverse())
-      button.addEventListener('mousedown', () => tapTl.play())
-      button.addEventListener('mouseup', () => tapTl.reverse())
-    })
+      button.addEventListener("mouseenter", () => hoverTl.play());
+      button.addEventListener("mouseleave", () => hoverTl.reverse());
+      button.addEventListener("mousedown", () => tapTl.play());
+      button.addEventListener("mouseup", () => tapTl.reverse());
+    });
 
     // Cleanup
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [])
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   return (
     <header
@@ -179,9 +177,9 @@ const Hero = () => {
       className="relative flex h-screen w-full items-center justify-center overflow-hidden"
       style={{
         backgroundImage: "url('/hero.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
       id="hero"
     >
@@ -224,7 +222,7 @@ const Hero = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

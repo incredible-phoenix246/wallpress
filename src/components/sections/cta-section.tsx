@@ -1,62 +1,60 @@
-'use client'
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
 
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { TextPlugin } from 'gsap/TextPlugin'
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, TextPlugin)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, TextPlugin);
 }
 
 export default function CTASection() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const line1Ref = useRef<HTMLHeadingElement>(null)
-  const line2Ref = useRef<HTMLHeadingElement>(null)
-  const buttonsRef = useRef<HTMLDivElement>(null)
-  const backgroundRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null);
+  const line1Ref = useRef<HTMLHeadingElement>(null);
+  const line2Ref = useRef<HTMLHeadingElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const section = sectionRef.current
-    const line1 = line1Ref.current
-    const line2 = line2Ref.current
-    const buttons = buttonsRef.current
-    const background = backgroundRef.current
+    const section = sectionRef.current;
+    const line1 = line1Ref.current;
+    const line2 = line2Ref.current;
+    const buttons = buttonsRef.current;
+    const background = backgroundRef.current;
 
-    if (!section || !line1 || !line2 || !buttons || !background) return
+    if (!section || !line1 || !line2 || !buttons || !background) return;
 
     gsap.set([line1, line2], {
       opacity: 0,
       y: 100,
       skewY: 7,
-    })
+    });
 
     gsap.set(buttons.children, {
       opacity: 0,
       y: 50,
       scale: 0.8,
-    })
+    });
 
     gsap.set(background, {
       scale: 1.1,
       opacity: 0,
-    })
+    });
 
     const mainTl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        toggleActions: 'play none none reverse',
+        start: "top 70%",
+        end: "bottom 30%",
+        toggleActions: "play none none reverse",
       },
-    })
+    });
 
     mainTl.to(background, {
       scale: 1,
       opacity: 1,
       duration: 1.5,
-      ease: 'power3.out',
-    })
+      ease: "power3.out",
+    });
 
     mainTl.to(
       line1,
@@ -65,10 +63,10 @@ export default function CTASection() {
         y: 0,
         skewY: 0,
         duration: 1.2,
-        ease: 'power4.out',
+        ease: "power4.out",
       },
-      '-=1'
-    )
+      "-=1"
+    );
 
     mainTl.to(
       line2,
@@ -77,10 +75,10 @@ export default function CTASection() {
         y: 0,
         skewY: 0,
         duration: 1.2,
-        ease: 'power4.out',
+        ease: "power4.out",
       },
-      '-=0.8'
-    )
+      "-=0.8"
+    );
 
     mainTl.to(
       buttons.children,
@@ -90,48 +88,48 @@ export default function CTASection() {
         scale: 1,
         duration: 0.8,
         stagger: 0.2,
-        ease: 'back.out(1.7)',
+        ease: "back.out(1.7)",
       },
-      '-=0.5'
-    )
+      "-=0.5"
+    );
 
     gsap.to(section, {
       y: -10,
       duration: 3,
-      ease: 'power1.inOut',
+      ease: "power1.inOut",
       yoyo: true,
       repeat: -1,
-    })
+    });
 
-    const downloadBtn = buttons.children[0] as HTMLElement
-    const learnBtn = buttons.children[1] as HTMLElement
+    const downloadBtn = buttons.children[0] as HTMLElement;
+    const learnBtn = buttons.children[1] as HTMLElement;
 
-    const downloadHover = gsap.timeline({ paused: true })
+    const downloadHover = gsap.timeline({ paused: true });
     downloadHover.to(downloadBtn, {
       scale: 1.1,
-      boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+      boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
       duration: 0.3,
-      ease: 'power2.out',
-    })
+      ease: "power2.out",
+    });
 
-    downloadBtn.addEventListener('mouseenter', () => downloadHover.play())
-    downloadBtn.addEventListener('mouseleave', () => downloadHover.reverse())
+    downloadBtn.addEventListener("mouseenter", () => downloadHover.play());
+    downloadBtn.addEventListener("mouseleave", () => downloadHover.reverse());
 
-    const learnHover = gsap.timeline({ paused: true })
+    const learnHover = gsap.timeline({ paused: true });
     learnHover.to(learnBtn, {
       scale: 1.05,
-      backgroundColor: '#f3f4f6',
+      backgroundColor: "#f3f4f6",
       duration: 0.3,
-      ease: 'power2.out',
-    })
+      ease: "power2.out",
+    });
 
-    learnBtn.addEventListener('mouseenter', () => learnHover.play())
-    learnBtn.addEventListener('mouseleave', () => learnHover.reverse())
+    learnBtn.addEventListener("mouseenter", () => learnHover.play());
+    learnBtn.addEventListener("mouseleave", () => learnHover.reverse());
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [])
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   return (
     <section
@@ -176,12 +174,12 @@ export default function CTASection() {
       <div className="absolute top-20 left-20 h-2 w-2 animate-pulse rounded-full bg-slate-400 opacity-60" />
       <div
         className="absolute right-32 bottom-32 h-3 w-3 animate-pulse rounded-full bg-slate-300 opacity-40"
-        style={{ animationDelay: '1s' }}
+        style={{ animationDelay: "1s" }}
       />
       <div
         className="absolute top-1/2 left-10 h-1 w-1 animate-pulse rounded-full bg-slate-500 opacity-50"
-        style={{ animationDelay: '2s' }}
+        style={{ animationDelay: "2s" }}
       />
     </section>
-  )
+  );
 }

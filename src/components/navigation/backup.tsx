@@ -1,75 +1,73 @@
-'use client'
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Twitter, Github, Youtube } from "lucide-react";
 
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Twitter, Github, Youtube } from 'lucide-react'
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 export default function Footer() {
-  const footerRef = useRef<HTMLElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
-  const taglineRef = useRef<HTMLParagraphElement>(null)
-  const socialRef = useRef<HTMLDivElement>(null)
-  const copyrightRef = useRef<HTMLParagraphElement>(null)
+  const footerRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
+  const copyrightRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const footer = footerRef.current
-    const logo = logoRef.current
-    const tagline = taglineRef.current
-    const social = socialRef.current
-    const copyright = copyrightRef.current
+    const footer = footerRef.current;
+    const logo = logoRef.current;
+    const tagline = taglineRef.current;
+    const social = socialRef.current;
+    const copyright = copyrightRef.current;
 
-    if (!footer || !logo || !tagline || !social || !copyright) return
+    if (!footer || !logo || !tagline || !social || !copyright) return;
 
-    const words = tagline.textContent?.split(' ') || []
+    const words = tagline.textContent?.split(" ") || [];
     tagline.innerHTML = words
       .map((word) => `<span class="word">${word}</span>`)
-      .join(' ')
-    const wordElements = tagline.querySelectorAll('.word')
+      .join(" ");
+    const wordElements = tagline.querySelectorAll(".word");
 
     gsap.set(logo, {
       scale: 0,
       rotation: -180,
       opacity: 0,
-    })
+    });
 
     gsap.set(wordElements, {
       opacity: 0,
       y: 30,
       rotationX: -90,
-    })
+    });
 
     gsap.set(social.children, {
       opacity: 0,
       scale: 0,
       rotation: 180,
-    })
+    });
 
     gsap.set(copyright, {
       opacity: 0,
       y: 20,
-    })
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: footer,
-        start: 'top 85%',
-        end: 'bottom 15%',
-        toggleActions: 'play none none reverse',
+        start: "top 85%",
+        end: "bottom 15%",
+        toggleActions: "play none none reverse",
       },
-    })
+    });
 
     tl.to(logo, {
       scale: 1,
       rotation: 0,
       opacity: 1,
       duration: 1,
-      ease: 'back.out(1.7)',
-    })
+      ease: "back.out(1.7)",
+    });
 
     tl.to(
       wordElements,
@@ -79,10 +77,10 @@ export default function Footer() {
         rotationX: 0,
         duration: 0.6,
         stagger: 0.08,
-        ease: 'power3.out',
+        ease: "power3.out",
       },
-      '-=0.5'
-    )
+      "-=0.5"
+    );
 
     tl.to(
       social.children,
@@ -92,10 +90,10 @@ export default function Footer() {
         rotation: 0,
         duration: 0.5,
         stagger: 0.1,
-        ease: 'back.out(1.7)',
+        ease: "back.out(1.7)",
       },
-      '-=0.3'
-    )
+      "-=0.3"
+    );
 
     tl.to(
       copyright,
@@ -103,38 +101,38 @@ export default function Footer() {
         opacity: 1,
         y: 0,
         duration: 0.6,
-        ease: 'power2.out',
+        ease: "power2.out",
       },
-      '-=0.2'
-    )
+      "-=0.2"
+    );
 
-    const socialIcons = social.querySelectorAll('a')
+    const socialIcons = social.querySelectorAll("a");
     socialIcons.forEach((icon) => {
-      const hoverTl = gsap.timeline({ paused: true })
+      const hoverTl = gsap.timeline({ paused: true });
 
       hoverTl.to(icon, {
         scale: 1.2,
         y: -5,
         duration: 0.3,
-        ease: 'power2.out',
-      })
+        ease: "power2.out",
+      });
 
-      icon.addEventListener('mouseenter', () => hoverTl.play())
-      icon.addEventListener('mouseleave', () => hoverTl.reverse())
-    })
+      icon.addEventListener("mouseenter", () => hoverTl.play());
+      icon.addEventListener("mouseleave", () => hoverTl.reverse());
+    });
 
     gsap.to(logo, {
       y: -5,
       duration: 2,
-      ease: 'power1.inOut',
+      ease: "power1.inOut",
       yoyo: true,
       repeat: -1,
-    })
+    });
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [])
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   return (
     <footer ref={footerRef} className="bg-gray-50 px-4 py-16">
@@ -183,5 +181,5 @@ export default function Footer() {
         </p>
       </div>
     </footer>
-  )
+  );
 }

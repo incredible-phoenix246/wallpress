@@ -1,7 +1,5 @@
-'use client'
-import { motion } from 'framer-motion'
-import type React from 'react'
-import BlurImage from '../miscellaneous/blur-image'
+import { motion } from "framer-motion";
+import BlurImage from "../miscellaneous/blur-image";
 
 const HowItWorks = () => {
   return (
@@ -24,7 +22,7 @@ const HowItWorks = () => {
               y: 0,
               opacity: 1,
               transition: {
-                type: 'spring',
+                type: "spring",
                 bounce: 0.4,
                 duration: 0.8,
               },
@@ -70,7 +68,7 @@ const HowItWorks = () => {
               y: 0,
               opacity: 100,
               transition: {
-                type: 'spring',
+                type: "spring",
                 bounce: 0.4,
                 duration: 0.8,
               },
@@ -117,7 +115,7 @@ const HowItWorks = () => {
               y: 0,
               opacity: 100,
               transition: {
-                type: 'spring',
+                type: "spring",
                 bounce: 0.4,
                 duration: 0.8,
               },
@@ -163,7 +161,7 @@ const HowItWorks = () => {
               y: 0,
               opacity: 100,
               transition: {
-                type: 'spring',
+                type: "spring",
                 bounce: 0.4,
                 duration: 0.8,
               },
@@ -209,7 +207,7 @@ const HowItWorks = () => {
               y: 0,
               opacity: 100,
               transition: {
-                type: 'spring',
+                type: "spring",
                 bounce: 0.4,
                 duration: 0.8,
               },
@@ -240,7 +238,7 @@ const HowItWorks = () => {
         </motion.div>
       </motion.div>
     </section>
-  )
-}
+  );
+};
 
-export default HowItWorks
+export default HowItWorks;

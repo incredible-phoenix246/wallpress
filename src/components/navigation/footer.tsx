@@ -1,36 +1,34 @@
-'use client'
+import { useEffect, useRef, useCallback } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Twitter, Github, Youtube } from "lucide-react";
+import BlurImage from "../miscellaneous/blur-image";
+// import Link from "";
 
-import { useEffect, useRef, useCallback } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Twitter, Github, Youtube } from 'lucide-react'
-import BlurImage from '../miscellaneous/blur-image'
-import Link from 'next/link'
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 const SOCIAL_LINKS = [
   {
-    href: 'https://x.com/WalpressApp',
+    href: "https://x.com/WalpressApp",
     icon: Twitter,
-    label: 'Twitter',
-    hoverEffect: { scale: 1.3, rotation: 10, backgroundColor: '#1DA1F2' },
+    label: "Twitter",
+    hoverEffect: { scale: 1.3, rotation: 10, backgroundColor: "#1DA1F2" },
   },
   {
-    href: 'https://github.com/WalPress/site-builder',
+    href: "https://github.com/WalPress/site-builder",
     icon: Github,
-    label: 'GitHub',
-    hoverEffect: { scale: 1.3, rotation: -10, backgroundColor: '#333' },
+    label: "GitHub",
+    hoverEffect: { scale: 1.3, rotation: -10, backgroundColor: "#333" },
   },
   {
-    href: 'https://www.youtube.com/@WalpressAPP',
+    href: "https://www.youtube.com/@WalpressAPP",
     icon: Youtube,
-    label: 'YouTube',
-    hoverEffect: { scale: 1.3, rotation: 5, backgroundColor: '#FF0000' },
+    label: "YouTube",
+    hoverEffect: { scale: 1.3, rotation: 5, backgroundColor: "#FF0000" },
   },
-]
+];
 
 const ANIMATION_CONFIG = {
   floating: {
@@ -40,103 +38,103 @@ const ANIMATION_CONFIG = {
   },
   logo: {
     duration: 1.2,
-    ease: 'elastic.out(1, 0.5)',
+    ease: "elastic.out(1, 0.5)",
   },
   chars: {
     duration: 0.05,
     stagger: 0.02,
-    ease: 'power2.out',
+    ease: "power2.out",
   },
   social: {
     duration: 0.6,
     stagger: 0.15,
-    ease: 'back.out(2)',
+    ease: "back.out(2)",
   },
   copyright: {
     duration: 0.8,
-    ease: 'power3.out',
+    ease: "power3.out",
   },
   hover: {
     duration: 0.3,
-    ease: 'power2.out',
+    ease: "power2.out",
   },
-}
+};
 
 export default function Footer() {
-  const footerRef = useRef<HTMLElement>(null)
-  const backgroundRef = useRef<HTMLDivElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
-  const taglineRef = useRef<HTMLParagraphElement>(null)
-  const socialRef = useRef<HTMLDivElement>(null)
-  const copyrightRef = useRef<HTMLParagraphElement>(null)
+  const footerRef = useRef<HTMLElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
+  const copyrightRef = useRef<HTMLParagraphElement>(null);
 
   const createFloatingElements = useCallback(() => {
-    const background = backgroundRef.current
-    if (!background) return
+    const background = backgroundRef.current;
+    if (!background) return;
 
     for (let i = 0; i < ANIMATION_CONFIG.floating.count; i++) {
-      const element = document.createElement('div')
+      const element = document.createElement("div");
       element.className =
-        'absolute w-2 h-2 bg-slate-200 rounded-full opacity-30'
-      element.style.left = `${Math.random() * 100}%`
-      element.style.top = `${Math.random() * 100}%`
-      background.appendChild(element)
+        "absolute w-2 h-2 bg-slate-200 rounded-full opacity-30";
+      element.style.left = `${Math.random() * 100}%`;
+      element.style.top = `${Math.random() * 100}%`;
+      background.appendChild(element);
 
-      const { duration, movement } = ANIMATION_CONFIG.floating
+      const { duration, movement } = ANIMATION_CONFIG.floating;
       gsap.to(element, {
         y: movement.y,
         x: Math.random() * movement.xVariance - movement.xVariance / 2,
         duration: duration.base + Math.random() * duration.variance,
-        ease: 'power1.inOut',
+        ease: "power1.inOut",
         yoyo: true,
         repeat: -1,
         delay: Math.random() * 2,
-      })
+      });
     }
-  }, [])
+  }, []);
 
   const setupTextAnimation = useCallback(() => {
-    const tagline = taglineRef.current
-    if (!tagline || !tagline.textContent) return null
+    const tagline = taglineRef.current;
+    if (!tagline || !tagline.textContent) return null;
 
-    const chars = tagline.textContent.split('')
+    const chars = tagline.textContent.split("");
     tagline.innerHTML = chars
-      .map((char) => (char === ' ' ? ' ' : `<span class="char">${char}</span>`))
-      .join('')
+      .map((char) => (char === " " ? " " : `<span class="char">${char}</span>`))
+      .join("");
 
-    return tagline.querySelectorAll('.char')
-  }, [])
+    return tagline.querySelectorAll(".char");
+  }, []);
 
   const setupSocialHoverEffects = useCallback(() => {
-    const social = socialRef.current
-    if (!social) return
+    const social = socialRef.current;
+    if (!social) return;
 
-    const socialIcons = social.querySelectorAll('a')
+    const socialIcons = social.querySelectorAll("a");
 
     socialIcons.forEach((icon, index) => {
-      const hoverTl = gsap.timeline({ paused: true })
-      const effect = SOCIAL_LINKS[index]?.hoverEffect
+      const hoverTl = gsap.timeline({ paused: true });
+      const effect = SOCIAL_LINKS[index]?.hoverEffect;
 
       if (effect) {
         hoverTl.to(icon, {
           ...effect,
           duration: ANIMATION_CONFIG.hover.duration,
           ease: ANIMATION_CONFIG.hover.ease,
-        })
+        });
 
-        const handleMouseEnter = () => hoverTl.play()
-        const handleMouseLeave = () => hoverTl.reverse()
+        const handleMouseEnter = () => hoverTl.play();
+        const handleMouseLeave = () => hoverTl.reverse();
 
-        icon.addEventListener('mouseenter', handleMouseEnter)
-        icon.addEventListener('mouseleave', handleMouseLeave)
+        icon.addEventListener("mouseenter", handleMouseEnter);
+        icon.addEventListener("mouseleave", handleMouseLeave);
 
         return () => {
-          icon.removeEventListener('mouseenter', handleMouseEnter)
-          icon.removeEventListener('mouseleave', handleMouseLeave)
-        }
+          icon.removeEventListener("mouseenter", handleMouseEnter);
+          icon.removeEventListener("mouseleave", handleMouseLeave);
+        };
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const initializeAnimations = useCallback(() => {
     const elements = {
@@ -145,52 +143,52 @@ export default function Footer() {
       tagline: taglineRef.current,
       social: socialRef.current,
       copyright: copyrightRef.current,
-    }
+    };
 
     if (Object.values(elements).some((el) => !el)) {
-      console.warn('Footer: Some required elements not found')
-      return
+      console.warn("Footer: Some required elements not found");
+      return;
     }
 
-    createFloatingElements()
+    createFloatingElements();
 
-    const charElements = setupTextAnimation()
-    if (!charElements) return
+    const charElements = setupTextAnimation();
+    if (!charElements) return;
 
     gsap.set(elements.logo, {
       scale: 0,
       rotation: -360,
       opacity: 0,
-    })
+    });
 
     gsap.set(charElements, {
       opacity: 0,
       y: 50,
       rotation: 15,
-    })
+    });
 
     if (elements.social) {
       gsap.set(elements.social.children, {
         opacity: 0,
         scale: 0,
         y: 30,
-      })
+      });
     }
 
     gsap.set(elements.copyright, {
       opacity: 0,
       y: 30,
       skewY: 5,
-    })
+    });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: elements.footer,
-        start: 'top 90%',
-        end: 'bottom 10%',
-        toggleActions: 'play none none reverse',
+        start: "top 90%",
+        end: "bottom 10%",
+        toggleActions: "play none none reverse",
       },
-    })
+    });
 
     tl.to(elements.logo, {
       scale: 1,
@@ -198,7 +196,7 @@ export default function Footer() {
       opacity: 1,
       duration: ANIMATION_CONFIG.logo.duration,
       ease: ANIMATION_CONFIG.logo.ease,
-    })
+    });
 
     tl.to(
       charElements,
@@ -210,8 +208,8 @@ export default function Footer() {
         stagger: ANIMATION_CONFIG.chars.stagger,
         ease: ANIMATION_CONFIG.chars.ease,
       },
-      '-=0.6'
-    )
+      "-=0.6"
+    );
 
     tl.to(
       elements.social?.children || [],
@@ -223,8 +221,8 @@ export default function Footer() {
         stagger: ANIMATION_CONFIG.social.stagger,
         ease: ANIMATION_CONFIG.social.ease,
       },
-      '-=0.4'
-    )
+      "-=0.4"
+    );
 
     tl.to(
       elements.copyright,
@@ -235,19 +233,19 @@ export default function Footer() {
         duration: ANIMATION_CONFIG.copyright.duration,
         ease: ANIMATION_CONFIG.copyright.ease,
       },
-      '-=0.3'
-    )
+      "-=0.3"
+    );
 
-    setupSocialHoverEffects()
-  }, [createFloatingElements, setupTextAnimation, setupSocialHoverEffects])
+    setupSocialHoverEffects();
+  }, [createFloatingElements, setupTextAnimation, setupSocialHoverEffects]);
 
   useEffect(() => {
-    initializeAnimations()
+    initializeAnimations();
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-    }
-  }, [initializeAnimations])
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [initializeAnimations]);
 
   return (
     <footer
@@ -278,7 +276,7 @@ export default function Footer() {
 
         <div ref={socialRef} className="flex justify-center space-x-8">
           {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
-            <Link
+            <a
               key={href}
               href={href}
               target="_blank"
@@ -287,7 +285,7 @@ export default function Footer() {
               className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-100 bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
             >
               <Icon className="h-6 w-6 text-gray-700" />
-            </Link>
+            </a>
           ))}
         </div>
 
@@ -299,5 +297,5 @@ export default function Footer() {
         </p>
       </div>
     </footer>
-  )
+  );
 }

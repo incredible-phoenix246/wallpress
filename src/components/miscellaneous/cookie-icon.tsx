@@ -1,8 +1,8 @@
-import { cn } from '~/lib/utils'
-import React, { forwardRef } from 'react'
+import { cn } from "../../lib/utils";
+import React, { forwardRef } from "react";
 export interface SVGProps extends React.SVGAttributes<SVGSVGElement> {
-  children?: React.ReactNode
-  href?: string
+  children?: React.ReactNode;
+  href?: string;
 }
 
 const CookieIcon = forwardRef<SVGSVGElement, SVGProps>(
@@ -23,9 +23,9 @@ const CookieIcon = forwardRef<SVGSVGElement, SVGProps>(
           fill="currentColor"
         />
       </svg>
-    )
+    );
   }
-)
+);
 
-CookieIcon.displayName = 'CookieIcon'
-export default CookieIcon
+CookieIcon.displayName = "CookieIcon";
+export default CookieIcon;

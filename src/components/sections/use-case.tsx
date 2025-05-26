@@ -1,15 +1,14 @@
-'use client'
-import { motion, useTransform, useScroll } from 'framer-motion'
-import { useRef } from 'react'
-import UseCaseCard, { UseCaseCardProps } from './use-case-card'
+import { motion, useTransform, useScroll } from "framer-motion";
+import { useRef } from "react";
+import UseCaseCard, { type UseCaseCardProps } from "./use-case-card";
 
 export const UseCaseSection = () => {
-  const targetRef = useRef<HTMLDivElement | null>(null)
+  const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-  })
+  });
 
-  const x = useTransform(scrollYProgress, [0, 1], ['1%', '-400%'])
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-400%"]);
 
   return (
     <section className="relative mx-auto w-full max-w-[1500px]">
@@ -34,38 +33,38 @@ export const UseCaseSection = () => {
         </div>
       </section>
     </section>
-  )
-}
+  );
+};
 
 const usecases: UseCaseCardProps[] = [
   {
-    title: 'Meme Creators',
+    title: "Meme Creators",
     description:
-      'Create viral meme pages that can’t be banned or taken down. Go live fast and stay online forever — even when the internet tries to cancel you.',
-    imageSrc: '/use1.png',
+      "Create viral meme pages that can’t be banned or taken down. Go live fast and stay online forever — even when the internet tries to cancel you.",
+    imageSrc: "/use1.png",
   },
   {
-    title: 'INDEPENDENT JOURNALISTS',
+    title: "INDEPENDENT JOURNALISTS",
     description:
-      'Publish stories, reports, or leaks without fear of takedowns. Host your words on censorship-resistant infrastructure, and link it all to a self-owned domain.',
-    imageSrc: '/use2.png',
+      "Publish stories, reports, or leaks without fear of takedowns. Host your words on censorship-resistant infrastructure, and link it all to a self-owned domain.",
+    imageSrc: "/use2.png",
   },
   {
-    title: 'Hobby Writers & Bloggers',
+    title: "Hobby Writers & Bloggers",
     description:
-      'Write what you want, how you want. Walpress gives you a simple way to create personal blogs that aren’t subject to platform rules or algorithm shifts. ',
-    imageSrc: '/use3.png',
+      "Write what you want, how you want. Walpress gives you a simple way to create personal blogs that aren’t subject to platform rules or algorithm shifts. ",
+    imageSrc: "/use3.png",
   },
   {
-    title: 'Researchers & Academics',
+    title: "Researchers & Academics",
     description:
-      'Distribute whitepapers, findings, and data without the red tape. Use Walpress to preserve your work on decentralized infrastructure — immutable and permanent.',
-    imageSrc: '/use4.png',
+      "Distribute whitepapers, findings, and data without the red tape. Use Walpress to preserve your work on decentralized infrastructure — immutable and permanent.",
+    imageSrc: "/use4.png",
   },
   {
-    title: 'DAOs & Token Projects',
+    title: "DAOs & Token Projects",
     description:
-      'Launch clean, fast landing pages for tokens, DAOs, or governance hubs — all without centralized hosting or registrar lock-in. Own your frontend like you own your smart contracts.',
-    imageSrc: '/use2.png',
+      "Launch clean, fast landing pages for tokens, DAOs, or governance hubs — all without centralized hosting or registrar lock-in. Own your frontend like you own your smart contracts.",
+    imageSrc: "/use2.png",
   },
-]
+];

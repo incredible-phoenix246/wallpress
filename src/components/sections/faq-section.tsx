@@ -1,61 +1,59 @@
-'use client'
-
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Minus } from 'lucide-react'
-import BlurImage from '../miscellaneous/blur-image'
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Minus } from "lucide-react";
+import BlurImage from "../miscellaneous/blur-image";
 
 interface FAQItem {
-  question: string
-  answer: string
+  question: string;
+  answer: string;
 }
 
 const faqData: FAQItem[] = [
   {
-    question: 'WHAT IS WALPRESS?',
+    question: "WHAT IS WALPRESS?",
     answer:
       "Walpress is a decentralized website builder that lets you build your frontend locally, connect a wallet-owned SuiNS domain, and deploy censorship-resistant content to the Walrus storage network. It's like WordPress — but for Web3.",
   },
   {
-    question: 'DO I NEED TO KNOW HOW TO CODE?',
+    question: "DO I NEED TO KNOW HOW TO CODE?",
     answer:
-      'No coding knowledge is required! Walpress provides an intuitive drag-and-drop interface that makes it easy for anyone to create professional websites. However, if you do know how to code, you can customize your site further with custom HTML, CSS, and JavaScript.',
+      "No coding knowledge is required! Walpress provides an intuitive drag-and-drop interface that makes it easy for anyone to create professional websites. However, if you do know how to code, you can customize your site further with custom HTML, CSS, and JavaScript.",
   },
   {
-    question: 'WHAT KIND OF SITES CAN I BUILD WITH WALPRESS?',
+    question: "WHAT KIND OF SITES CAN I BUILD WITH WALPRESS?",
     answer:
-      'You can build any type of website including blogs, portfolios, business websites, e-commerce stores, landing pages, and more. Walpress supports all the features you need for modern web development while maintaining decentralization.',
+      "You can build any type of website including blogs, portfolios, business websites, e-commerce stores, landing pages, and more. Walpress supports all the features you need for modern web development while maintaining decentralization.",
   },
   {
-    question: 'WHAT IS SUINS?',
+    question: "WHAT IS SUINS?",
     answer:
-      'SuiNS (Sui Name Service) is a decentralized domain name system built on the Sui blockchain. It allows you to register human-readable domain names that you truly own, without relying on traditional DNS providers.',
+      "SuiNS (Sui Name Service) is a decentralized domain name system built on the Sui blockchain. It allows you to register human-readable domain names that you truly own, without relying on traditional DNS providers.",
   },
   {
-    question: 'IS THERE A COST TO USE WALPRESS?',
+    question: "IS THERE A COST TO USE WALPRESS?",
     answer:
-      'Walpress itself is free to use. You only pay for blockchain transaction fees when registering domains or deploying content. These costs are minimal and much lower than traditional hosting services.',
+      "Walpress itself is free to use. You only pay for blockchain transaction fees when registering domains or deploying content. These costs are minimal and much lower than traditional hosting services.",
   },
   {
-    question: 'WHAT IS WALRUS?',
+    question: "WHAT IS WALRUS?",
     answer:
-      'Walrus is a decentralized storage network that provides censorship-resistant, permanent storage for your website content. It ensures your site remains accessible even if traditional hosting providers fail or censor content.',
+      "Walrus is a decentralized storage network that provides censorship-resistant, permanent storage for your website content. It ensures your site remains accessible even if traditional hosting providers fail or censor content.",
   },
   {
-    question: 'HOW IS THIS DIFFERENT FROM USING NETLIFY, VERCEL, OR AWS?',
+    question: "HOW IS THIS DIFFERENT FROM USING NETLIFY, VERCEL, OR AWS?",
     answer:
-      'Unlike traditional hosting providers, Walpress offers true ownership and censorship resistance. Your content is stored on a decentralized network, you own your domain through blockchain technology, and no single entity can take down your site.',
+      "Unlike traditional hosting providers, Walpress offers true ownership and censorship resistance. Your content is stored on a decentralized network, you own your domain through blockchain technology, and no single entity can take down your site.",
   },
-]
+];
 
 export default function FAQSection() {
-  const [openItems, setOpenItems] = useState<number[]>([0]) // First item open by default
+  const [openItems, setOpenItems] = useState<number[]>([0]); // First item open by default
 
   const toggleItem = (index: number) => {
     setOpenItems((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    )
-  }
+    );
+  };
 
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -67,7 +65,7 @@ export default function FAQSection() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -76,7 +74,7 @@ export default function FAQSection() {
       y: 0,
       transition: { duration: 0.5 },
     },
-  }
+  };
 
   const avatarVariants = {
     hidden: { scale: 0, opacity: 0 },
@@ -86,11 +84,11 @@ export default function FAQSection() {
       transition: {
         delay: i * 0.1,
         duration: 0.5,
-        type: 'spring',
+        type: "spring",
         stiffness: 200,
       },
     }),
-  }
+  };
 
   return (
     <section className="bg-[#F6F5F0] px-4 py-20">
@@ -99,7 +97,7 @@ export default function FAQSection() {
           className="mb-16 text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           <motion.h2
@@ -120,7 +118,7 @@ export default function FAQSection() {
           className="mx-auto mb-20 max-w-4xl space-y-0"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: true, margin: "-50px" }}
           variants={containerVariants}
         >
           {faqData.map((item, index) => (
@@ -154,10 +152,10 @@ export default function FAQSection() {
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{
-                      height: 'auto',
+                      height: "auto",
                       opacity: 1,
                       transition: {
-                        height: { duration: 0.3, ease: 'easeOut' },
+                        height: { duration: 0.3, ease: "easeOut" },
                         opacity: { duration: 0.2, delay: 0.1 },
                       },
                     }}
@@ -165,7 +163,7 @@ export default function FAQSection() {
                       height: 0,
                       opacity: 0,
                       transition: {
-                        height: { duration: 0.3, ease: 'easeIn' },
+                        height: { duration: 0.3, ease: "easeIn" },
                         opacity: { duration: 0.1 },
                       },
                     }}
@@ -269,5 +267,5 @@ export default function FAQSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
